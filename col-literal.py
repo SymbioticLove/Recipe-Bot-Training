@@ -2,7 +2,7 @@ import os
 import pickle
 
 # Define the file path
-file_path = './[FILE PATH HERE].pkl'
+file_path = './[PATH TO YOUR FILE].pkl'
 
 # Extract the file name without the path
 file_name = os.path.basename(file_path)
