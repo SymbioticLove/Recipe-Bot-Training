@@ -14,11 +14,13 @@ with open(file_path, 'rb') as f:
 # Extract the column names from the dataset
 column_names = list(data[0].keys())
 
-# Print the column names
-print("Column names in '{}':".format(file_name))
+# Print the number of items in each column
+print("Items per column in '{}':".format(file_name))
 for column_name in column_names:
-    print(column_name)
+    column_items = [record[column_name] for record in data]
+    num_items = len(column_items)
+    print("{}: {}".format(column_name, num_items))
 
-# Print the number of columns
+# Print the total number of columns
 num_columns = len(column_names)
-print("Number of columns in '{}': {}".format(file_name, num_columns))
+print("Total number of columns in '{}': {}".format(file_name, num_columns))
