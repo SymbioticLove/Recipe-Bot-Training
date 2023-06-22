@@ -13,18 +13,12 @@ tf.random.set_seed(42)
 # Step 2: Load the data
 
 train_files = ['./pickle/train/chocolate_makers-train.pkl']
-eval_files = ['./pickle/eval/chocolate_makers-eval.pkl']
 
 train_labels = []
-eval_labels = []
 train_cities = []
-eval_cities = []
 train_states = []
-eval_states = []
 train_owners = []
-eval_owners = []
 train_countries = []
-eval_countries = []
 
 # Load training data from multiple files
 for file_path in train_files:
@@ -36,17 +30,6 @@ for file_path in train_files:
         train_states.append(str(train_data['State']))
         train_owners.append(str(train_data['Owner']))
         train_countries.append(str(train_data['Country']))
-
-# Load evaluation data from multiple files
-for file_path in eval_files:
-    with open(file_path, 'rb') as f:
-        eval_data_list = pickle.load(f)
-    for eval_data in eval_data_list:
-        eval_labels.append(str(eval_data['labels']))
-        eval_cities.append(str(eval_data['City']))
-        eval_states.append(str(eval_data['State']))
-        eval_owners.append(str(eval_data['Owner']))
-        eval_countries.append(str(eval_data['Country']))
 
 # Step 3: Split the data into training and validation sets
 
@@ -134,29 +117,6 @@ for epoch in range(epochs):
         val_loss.append(batch_eval_loss)
     val_loss = tf.reduce_mean(val_loss)
     print(f"Validation Loss: {val_loss}")
-
-# Evaluation loop
-eval_loss = []
-for batch_y, batch_cities, batch_states, batch_owners, batch_countries in eval_data:
-    text_list = [f"{city}, {state}, {owner}, {country}" for city, state, owner, country in zip(batch_cities.numpy().tolist(), batch_states.numpy().tolist(), batch_owners.numpy().tolist(), batch_countries.numpy().tolist())]
-
-    inputs = tokenizer.batch_encode_plus(
-        text_list,  # Pass the concatenated text as a list
-        padding='max_length',
-        truncation=True,
-        max_length=512,
-        return_tensors='tf'
-    )
-    inputs = {k: tf.squeeze(v) for k, v in inputs.items()}
-    inputs = {'input_ids': inputs['input_ids'], 'attention_mask': inputs['attention_mask']}  # Update input keys
-    batch_y = tf.convert_to_tensor(batch_y)
-
-    eval_logits = model(inputs, training=False)
-    batch_eval_loss = loss_fn(batch_y, eval_logits)
-    eval_loss.append(batch_eval_loss)
-eval_loss = tf.reduce_mean(eval_loss)
-print(f"Evaluation Loss: {eval_loss}")
-
 
 # Step 7: Save and deploy your model
 
