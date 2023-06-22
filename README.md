@@ -21,7 +21,7 @@ Here you will find all of the scripts that I am using to train the ultimate kitc
 <h2>col-details.py</h2>
 This script should be run on each .pkl file after they are created with <em>tr-eval-split.py</em> to ensure that each column has the same number of items as well as the correct column name. The total number of columns will also be displayed. If there is a mismatch in items per column, the <em>train.py</em> script will not execute properly. If there is, it is likely due to improper data normalization in the <em>tr-eval-split.py</em> script. If all of your data has been converted and normalized properly, the issue may lie witin the dataset itself. If all of your colums have the same number of entries, good job! This can be quite the task if your dataset is poorly formatted. You will need the total # of items per column for the <em>train.py</em> script (261 in this case)
 <div>&nbsp</div>
-<img src="./github-images/col-items.png">
+<img src="./github-images/col-details.png">
 <h4>To use this script, simply change line #5 to have the correct file path to your .pkl file</h4>
 <h2>col-literal.py</h2>
 This script is included for debugging and verification and will display the items in each line of the dataset as their own block if you need to visually inspect the data structure for any reason.
