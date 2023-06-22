@@ -2,21 +2,19 @@ import pandas as pd
 import pickle
 
 # Load the dataset from a CSV file
-df = pd.read_csv('./datasets/chocolate_makers.csv')
+df = pd.read_csv('./[PATH TO YOUR DATASET].csv')
 
 # Extract the labels from a unique column
-labels = df['COMPANY NAME']
+labels = df['UNIQUE IDENTIFER FOR EACH ITEM (ANY DATA COLUMN THAT HAS DATA THAT CAN NEVER APPEAR TWICE)']
 
 # Clean and normalize the data (if required)
 # No specific cleaning or normalization steps mentioned in the dataset structure
 
 # Rename the columns
 df = df.rename(columns={
-    'COMPANY NAME': 'labels',
-    'CITY': 'City',
-    'STATE/PROVINCE': 'State',
-    'OWNER/MAKER': 'Owner',
-    'COUNTRY': 'Country'
+    'COLUMN NAME FROM DATASET': 'NEW COLUMN NAME',
+    'COLUMN NAME FROM DATASET': 'NEW COLUMN NAME',
+    'COLUMN NAME FROM DATASET': 'NEW COLUMN NAME'
 })
 
 # Split the dataset into training and evaluation sets (70% for training, 30% for evaluation)
@@ -28,8 +26,8 @@ train_data = train_df.to_dict(orient='records')
 eval_data = eval_df.to_dict(orient='records')
 
 # Save the dictionaries as .pkl files
-with open('./pickle/train/chocolate_makers-train.pkl', 'wb') as f:
+with open('./[PATH AND FILENAME TO SAVE TRAIN DATASET].pkl', 'wb') as f:
     pickle.dump(train_data, f)
 
-with open('./pickle/eval/chocolate_makers-eval.pkl', 'wb') as f:
+with open('./[PATH AND FILENAME TO SAVE EVAL DATASET].pkl', 'wb') as f:
     pickle.dump(eval_data, f)
