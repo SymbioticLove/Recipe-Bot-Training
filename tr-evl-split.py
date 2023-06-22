@@ -5,10 +5,10 @@ import pickle
 df = pd.read_csv('./[PATH TO YOUR DATASET].csv')
 
 # Extract the labels from a unique column
-labels = df['UNIQUE IDENTIFER FOR EACH ITEM (ANY DATA COLUMN THAT HAS DATA THAT CAN NEVER APPEAR TWICE)']
+labels = df['UNIQUE COLUMN NAME']
 
 # Clean and normalize the data (if required)
-# No specific cleaning or normalization steps mentioned in the dataset structure
+# No specific cleaning or normalization steps needed for this dataset
 
 # Rename the columns
 df = df.rename(columns={
