@@ -12,7 +12,7 @@ labels = df['UNIQUE IDENTIFER FOR EACH ITEM (ANY DATA COLUMN THAT HAS DATA THAT 
 
 # Rename the columns
 df = df.rename(columns={
-    'COLUMN NAME FROM DATASET': 'NEW COLUMN NAME',
+    'labels': 'labels',
     'COLUMN NAME FROM DATASET': 'NEW COLUMN NAME',
     'COLUMN NAME FROM DATASET': 'NEW COLUMN NAME'
 })
