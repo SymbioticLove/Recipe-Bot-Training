@@ -37,7 +37,7 @@ This is the actual training script for the bot. A high level breakdown is as fol
   <li>The data from the .pkl file(s) is loaded in and normalized</li>
   <li>The training data is then split again into 2 sets, training (80%) and validation (20%)</li>
   <li>The number of iterations (epochs here) and batch size are defined</li>
-  <li>The bot runs through the Training, Validation and Evaluation loops, improving on it's learning capabilities each loop until the total number of iterations is reached, whereupon the final files, our "trained AI" are saved as .h5 files</li>
+  <li>The bot runs through the Training, Validation and Evaluation loops, improving on it's learning capabilities each loop until the total number of iterations is reached, whereupon the final files, our "trained AI",  are saved as .h5 files</li>
 </ol>
 <div>&nbsp</div>
 I am currently debugging the train/validate/evaluate loop as it is not fully functional yet. This project will have updates posted at the top of this ReadMe.
