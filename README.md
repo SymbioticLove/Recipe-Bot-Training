@@ -33,7 +33,7 @@ This script is included for debugging and verification and will display the item
 This is the actual training script for the bot. A high level breakdown is as follows:
 <div>&nbsp</div>
 <ol>
-  <li>The script has a defined random value to begin training from set in the env; a seed. For reproducable results, this must be included and remain unchanged throughout the training process</li>
+  <li>The script has a defined value used to generate a randomized value for testing. For reproducable results, this must be included and remain unchanged throughout the training process</li>
   <li>The data from the .pkl file(s) is loaded in and normalized</li>
   <li>The training data is then split again into 2 sets, training (80%) and validation (20%)</li>
   <li>The number of iterations (epochs here) and batch size are defined</li>
