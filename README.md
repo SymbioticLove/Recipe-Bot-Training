@@ -1,44 +1,166 @@
 <h1>Ultimate Kitchen Companion AI</h1>
 Here you will find all of the scripts that I am using to train the ultimate kitchen companion in the form of an AI chatbot. This bot will be able to suggest recipes based on myriad factors such as taste, ethnicity, type, caloric content and more! Think, "I'd like a recipe for an Indian dish that isn't too spicy and has under 400 calories."
-<h4>Below you will find explanations of each script and how they need to be modified to be used</h4>
-<h2>tr-eval-split.py</h2>
-<h3>This script takes a .csv file and performs the following actions:</h3>
-<ol>
-  <li>Renames a unique column as "labels" (Ex. The "Company Name" in the chocolate_makers.csv dataset. There would never in this instance be two seperate lines for the same company, therefore this column is unique, unlike "City", which may see repeated values throughout the dataset) to give each data entry one unique identifier</li> 
-  <li>Cleans and normalizes the data (the chocolate_makers.csv dataset was well formatted and required no special cleaning or normalization, but there is a section for this)</li> 
-  <li>Targets and converts all of the column names in the dataset into keys (you will still use line #15, 'labels: labels', for whatever column you changed to be 'labels'. Do not remove this)</li> 
-  <li>Splits the dataset into 2 different sets, training (70%) and evaluation (30%). The training files will be carried into the next step and the evaluation files will be saved for testing the trained AI model</li> 
-  <li>Converts the DataFrames into dictionaries</li>
-  <li>Saves the resulting training and evaluation output files as 2 seperate .pkl files</li>
-</ol>
-<h3>To use this script, you will need to modify the following:</h3>
-<ol>
-  <li>Line #5 must be modified to include the path to your .csv dataset</li>
-  <li>Line #8 must be modified to include the name of a unique column in your dataset</li>
-  <li>The array defined at like #14 must include the name of the dataset columns on the left and what you're renaming them to on the right. Line #15 should remain in every instance</li>
-  <li>The paths to save the newly created .pkl files must be inserted at lines #29 and #32</li>
-</ol>
-<h2>col-details.py</h2>
-This script should be run on each .pkl file after they are created with <em>tr-eval-split.py</em> to ensure that each column has the same number of items as well as the correct column name. The total number of columns will also be displayed. If there is a mismatch in items per column, the <em>train.py</em> script will not execute properly. If there is, it is likely due to improper data normalization in the <em>tr-eval-split.py</em> script. If all of your data has been converted and normalized properly, the issue may lie witin the dataset itself. If all of your colums have the same number of entries, good job! This can be quite the task if your dataset is poorly formatted. You will need the total # of items per column for the <em>train.py</em> script (261 in this case)
-<div>&nbsp</div>
-<img src="./github-images/col-details.png">
-<h4>To use this script, simply change line #5 to have the correct file path to your .pkl file</h4>
-<h2>col-literal.py</h2>
-This script is included for debugging and verification and will display the items in each line of the dataset as their own block if you need to visually inspect the data structure for any reason.
-<div>&nbsp</div>
-<img src="./github-images/col-literal.png">
-<div>&nbsp</div>
-<h4>To use this script, simply change line #5 to have the correct file path to your .pkl file</h4>
-<h2>train.py</h2>
-This is the actual training script for the bot. A high level breakdown is as follows:
+<h2>6/25 Update</h2>
+Leaps and bounds have been made this week. The scripts are now combined into a single script capable of training and AI using .csv datasets (though, this could be modified to use any type of file) and a NLP model. The checkpoint and early_stopping callbacks ensure that only the best model from testing is saved and that the training is stopped if there is no improvement for 5 epochs, preventing overfitting and diminishing returns. The finalized files are saved as an .h5 file called "nlp-pretrain" so it can be interacted with or built upon further. The repository files now include the env files, a requirements .txt, and both a full.py file that contains the entire script without componetization, as well as a master.py file and all of the components packaged for download. The script functions as follows:
 <div>&nbsp</div>
 <ol>
-  <li>The script has a defined value used to generate a randomized value for testing. For reproducable results, this must be included and remain unchanged throughout the training process</li>
-  <li>The data from the training .pkl file(s) is/are loaded in and normalized</li>
-  <li>The training data is then split again into 2 sets, training (80%) and validation (20%)</li>
-  <li>The number of iterations (epochs here) and batch size are defined</li>
-  <li>The bot runs through the training and validation loops, improving on it's learning capabilities each loop until the total number of iterations is reached, whereupon the final files, our "trained AI",  are saved as .h5 files</li>
+  <li>Imports the necessary libraries and modules
+  <div>&nbsp</div>
+  
+  ```python
+  import numpy as np
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  from tensorflow.keras.models import Sequential
+  from tensorflow.keras.layers import Dense, Embedding, LSTM, Dropout
+  from tensorflow.keras.preprocessing.text import Tokenizer
+  from tensorflow.keras.preprocessing.sequence import pad_sequences
+  from tensorflow.keras.utils import to_categorical
+  from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
+  ```
+
+  </li>
+  <li>Loads the .csv dataset
+  <div>&nbsp</div>
+
+  ```python
+  dataset_path = "./datasets/Conversation.csv"
+  dataset = pd.read_csv(dataset_path)
+  ```
+    
+  </li>
+  <li>Creates a dictionary to map old column names to new column names
+  <div>&nbsp</div>
+
+  ```python
+  column_mapping = {
+    "question": "Questions",
+    "answer": "Answers"
+  }
+  ```
+
+  </li>
+  <li>Renames the columns of the directory using the column mapping directory
+  <div>&nbsp</div>
+
+  ```python
+  dataset = dataset.rename(columns=column_mapping)
+  ```
+  
+  </li>
+  <li>Extracts questions and answers from the dataset
+  <div>&nbsp</div>
+
+  ```python
+  questions = dataset["Questions"].values
+  answers = dataset["Answers"].values
+  ```
+
+  </li>
+  <li>Converts the answers to one-hot encoding (non-ideal, this is being worked on)
+  <div>&nbsp</div>
+    
+  ```python
+  label_to_index = {label: index for index, label in enumerate(set(answers))}
+  index_to_label = {index: label for label, index in label_to_index.items()}
+  encoded_answers = np.array([label_to_index[label] for label in answers])
+  num_labels = len(label_to_index)
+  one_hot_answers = to_categorical(encoded_answers, num_labels)
+  ```
+    
+  </li>
+  <li>Tokenizes and converts the questions to sequences
+  <div>&nbsp</div>
+
+  ```python
+  tokenizer = Tokenizer()
+  tokenizer.fit_on_texts(questions)
+  sequences = tokenizer.texts_to_sequences(questions)
+  ```
+    
+  </li>
+  <li>Determines the maximum sequence length and pads the sequences to have a consistent length
+  <div>&nbsp<div>
+    
+  ```python
+  max_sequence_length = max(len(seq) for seq in sequences)
+  padded_sequences = pad_sequences(sequences, maxlen=max_sequence_length)
+  ```
+    
+  </li>
+  <li>Splits the dataset into training and evaluation data
+  <div>&nbsp<div>
+    
+  ```python
+  train_questions, eval_questions, train_answers, eval_answers = train_test_split(
+    padded_sequences, one_hot_answers, test_size=0.2, random_state=42
+  )
+  ```
+    
+  </li>
+  <li>Builds the model
+  <div>&nbsp<div>
+    
+  ```python
+  model = Sequential()
+  model.add(Embedding(num_labels, 64, input_length=max_sequence_length))
+  model.add(LSTM(64, dropout=0.2))
+  model.add(Dense(num_labels, activation="softmax"))
+  ```
+    
+  </li>
+  <li>Compiles the model with the loss function, optimizer, and metrics
+  <div>&nbsp<div>
+    
+  ```python
+  model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+  ```
+    
+  </li>
+  <li>Defines the callbacks for model checkpointing and early stopping
+  <div>&nbsp<div>
+    
+  ```python
+  checkpoint = ModelCheckpoint("nlp-pretrain.h5", monitor="val_accuracy", save_best_only=True, mode="max")
+  early_stopping = EarlyStopping(monitor="val_loss", patience=5, mode="min", restore_best_weights=True)
+  ```
+    
+  </li>
+  <li>Trains the model
+  <div>&nbsp<div>
+    
+  ```python
+  batch_size = 128
+  epochs = 50
+  model.fit(
+      train_questions,
+      train_answers,
+      validation_data=(eval_questions, eval_answers),
+      batch_size=batch_size,
+      epochs=epochs,
+      callbacks=[checkpoint, early_stopping]
+  )
+
+  ```
+    
+  </li>
+  <li>Saves the trained model
+  <div>&nbsp<div>
+    
+  ```python
+  model.save("nlp-pretrain.h5")
+  ```
+    
+  </li>
+  <li>Prints the prediction accuracy of the model
+  <div>&nbsp<div>
+    
+  ```python
+  _, accuracy = model.evaluate(eval_questions, eval_answers, batch_size=batch_size)
+  print("Prediction accuracy:", accuracy)
+  ```
+    
+  </li>
 </ol>
-<div>&nbsp</div>
-I am currently debugging the train/validate loop as it is not fully functional yet. This project will have updates posted at the top of this ReadMe.
+The one-hot encoding is not ideal for NLP processing. I am looking into better conversational approaches currently.
 
