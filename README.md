@@ -1,7 +1,20 @@
 <h1>Ultimate Kitchen Companion AI</h1>
 Here you will find all of the scripts that I am using to train the ultimate kitchen companion in the form of an AI chatbot. This bot will be able to suggest recipes based on myriad factors such as taste, ethnicity, type, caloric content and more! Think, "I'd like a recipe for an Indian dish that isn't too spicy and has under 400 calories."
 <h2>6/25 Update</h2>
-Leaps and bounds have been made this week. The scripts are now combined into a single script capable of training and AI using .csv datasets (though, this could be modified to use any type of file) and a NLP model. The checkpoint and early_stopping callbacks ensure that only the best model from testing is saved and that the training is stopped if there is no improvement for 5 epochs, preventing overfitting and diminishing returns. The finalized files are saved as an .h5 file called "nlp-pretrain" so it can be interacted with or built upon further. The repository files now include the env files, a requirements .txt, and both a full.py file that contains the entire script without componetization, as well as a master.py file and all of the components packaged for download. The script functions as follows:
+Leaps and bounds have been made this week. The scripts are now combined into a single script capable of training and AI using .csv datasets (though, this could be modified to use any type of file) and a NLP model. The checkpoint and early_stopping callbacks ensure that only the best model from testing is saved and that the training is stopped if there is no improvement for 5 epochs, preventing overfitting and diminishing returns. The finalized files are saved as an .h5 file called "nlp-pretrain" so it can be interacted with or built upon further. The repository files now include a setup.py file and both a full.py file that contains the entire script without componetization, as well as a master.py file and all of the components for download. The files are organized correctly to run within this repository (the python files if using components must be in the same directory, the dataset must be within the dataset folder, etc.). If you are downloading the component version, the files you will need are:
+<div>&nbsp</div>
+<ol>
+  <li>setup.py</li>
+  <li>master.py</li>
+  <li>data_preprocessing.py</li>
+  <li>model_building.py</li>
+  <li>training.py</li>
+  <li>evaluation.py</li>
+  <li>saving.py</li>
+  <li>The dataset directory and files</li>
+</ol>
+
+The script functions as follows:
 <div>&nbsp</div>
 <ol>
   <li>Imports the necessary libraries and modules
