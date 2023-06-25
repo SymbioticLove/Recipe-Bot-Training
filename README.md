@@ -33,6 +33,7 @@ The script functions as follows:
   ```
 
   </li>
+  <div>&nbsp</div>
   <li>Loads the .csv dataset
   <div>&nbsp</div>
 
@@ -42,6 +43,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Creates a dictionary to map old column names to new column names
   <div>&nbsp</div>
 
@@ -53,6 +55,7 @@ The script functions as follows:
   ```
 
   </li>
+  <div>&nbsp</div>
   <li>Renames the columns of the directory using the column mapping directory
   <div>&nbsp</div>
 
@@ -61,6 +64,7 @@ The script functions as follows:
   ```
   
   </li>
+  <div>&nbsp</div>
   <li>Extracts questions and answers from the dataset
   <div>&nbsp</div>
 
@@ -70,6 +74,7 @@ The script functions as follows:
   ```
 
   </li>
+  <div>&nbsp</div>
   <li>Converts the answers to one-hot encoding (non-ideal, this is being worked on)
   <div>&nbsp</div>
     
@@ -82,6 +87,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Tokenizes and converts the questions to sequences
   <div>&nbsp</div>
 
@@ -92,6 +98,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Determines the maximum sequence length and pads the sequences to have a consistent length
   <div>&nbsp<div>
     
@@ -101,6 +108,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Splits the dataset into training and evaluation data
   <div>&nbsp<div>
     
@@ -111,6 +119,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Builds the model
   <div>&nbsp<div>
     
@@ -122,6 +131,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Compiles the model with the loss function, optimizer, and metrics
   <div>&nbsp<div>
     
@@ -130,6 +140,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Defines the callbacks for model checkpointing and early stopping
   <div>&nbsp<div>
     
@@ -139,6 +150,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Trains the model
   <div>&nbsp<div>
     
@@ -157,6 +169,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Saves the trained model
   <div>&nbsp<div>
     
@@ -165,6 +178,7 @@ The script functions as follows:
   ```
     
   </li>
+  <div>&nbsp</div>
   <li>Prints the prediction accuracy of the model
   <div>&nbsp<div>
     
@@ -176,4 +190,3 @@ The script functions as follows:
   </li>
 </ol>
 The one-hot encoding is not ideal for NLP processing. I am looking into better conversational approaches currently.
-
