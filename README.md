@@ -189,4 +189,4 @@ The script functions as follows:
     
   </li>
 </ol>
-The one-hot encoding is not ideal for NLP processing. I am looking into better conversational approaches currently.
+The one-hot encoding is not ideal for NLP. I am looking into better conversational approaches currently.
