@@ -1,6 +1,8 @@
 Hello! Thank you for dowloading. This is an early release, v1.0. Open setup.py in any text editor to see the dependency requirements for your virtual environment!
 
-Known issues: Lack of datasets, will need to modify components to handle multiple datasets, one-hot encoding is far from ideal for NLP - looking into a Python library that is supposed to be better, CURRENTLY, THE MODEL ARCHITECHTURE, CHECKPOINT AND WEIGHTS ALL SAVE APPROPRIATELY IN THE "PRETRAINED-MODEL" DIRECTORY. THERE IS ALSO AN NLP-PRETRAIN.H5 FILE THAT IS SAVED IN THE ROOT DIRECTORY, AND I CANNOT FOR THE LIFE OF ME FIGURE OUT WHY THAT IS. ANYONE WHO SOLVES THIS WILL BE MY BEST BUDDY FOR AT LEAST A WEEK.
+Known issues: Lack of datasets, will need to modify components to handle multiple datasets, one-hot encoding is far from ideal for NLP - looking into a Python library that is supposed to be better.
+<div>&nbsp</div>
+CURRENTLY, THE MODEL ARCHITECHTURE, CHECKPOINT AND WEIGHTS ALL SAVE APPROPRIATELY IN THE "PRETRAINED-MODEL" DIRECTORY. THERE IS ALSO AN NLP-PRETRAIN.H5 FILE THAT IS SAVED IN THE ROOT DIRECTORY, AND I CANNOT FOR THE LIFE OF ME FIGURE OUT WHY THAT IS. ANYONE WHO SOLVES THIS WILL BE MY BEST BUDDY FOR AT LEAST A WEEK.
 
 Make sure you have Python downloaded from https://www.python.org/downloads/
 
