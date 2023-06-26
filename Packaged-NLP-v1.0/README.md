@@ -3,11 +3,11 @@ Hello! Thank you for dowloading. This is an early release, v1.0. Open setup.py i
 Known issues: Lack of datasets, will need to modify components to handle multiple datasets, one-hot encoding is far from ideal for NLP - looking into a Python library that is supposed to be better.
 <div>&nbsp</div>
 CURRENTLY, THE MODEL ARCHITECHTURE, CHECKPOINT AND WEIGHTS ALL SAVE APPROPRIATELY IN THE "PRETRAINED-MODEL" DIRECTORY. THERE IS ALSO AN NLP-PRETRAIN.H5 FILE THAT IS SAVED IN THE ROOT DIRECTORY, AND I CANNOT FOR THE LIFE OF ME FIGURE OUT WHY THAT IS. ANYONE WHO SOLVES THIS WILL BE MY BEST BUDDY FOR AT LEAST A WEEK.
-
+<div>&nbsp</div>
 Make sure you have Python downloaded from https://www.python.org/downloads/
-
+<div>&nbsp</div>
 The .bat files included in the "shortcuts" directory can be used to open the command shell and execute the various actions. You should execute "Create_Env" first as this will create a virtual envrionment and install the necessary dependencies. If you need to test the dependences, run "Dep_Test". "Run" executes the actual training script. These shortcuts all assume that you have downloaded the root directory, "Packaged-NLP-v1.0", at your C: drive. If you have it elsewhere, you will need to modify these. This is a very early release, and the current single dataset is highly unlikely to produce any relevant conversation or even a result at all. This is also due to the encoding. If you have any suggestions, reach out to matthew@symbiotic.love.
-
+<div>&nbsp</div>
 The master.py script imports 5 individual components (preprocess_data, build_model, train_model, evaluate_model, save_model) and operates a script in the order given to produce an .h5 file named "nlp-pretrain" to be built upon further. The full.py script located in the unpackaged directory is the same script functionally, but is not componetized in any way. I highly advise using the packaged and componetized version, as this is easier to modify. In detail, the script functions as follows:
 <div>&nbsp</div>
 <ol>
