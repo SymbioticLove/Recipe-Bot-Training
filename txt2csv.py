@@ -11,7 +11,7 @@ def convert_to_csv():
     # Update the root directory path if needed
     root_directory = ""
 
-    input_files = sorted(glob.glob(os.path.join(root_directory, "/input/Conversation*.txt")))
+    input_files = sorted(glob.glob(os.path.join(root_directory, "Conversation*.txt")))
     output_folder = os.path.join(root_directory, "converted")
     delimiter = ','
 
@@ -48,6 +48,11 @@ def convert_to_csv():
 
             try:
                 items = line.split('\t')
+                # Check if any item in the line is NULL
+                if any(item == 'NULL' for item in items):
+                    skipped_rows += 1
+                    skipped_rows_by_dataset[input_file] += 1
+                    continue
                 data.append(items)
             except UnicodeEncodeError:
                 print(f"Skipped row in file '{input_file}': {line}")
